@@ -1,0 +1,8 @@
+### 주변 관광 명소 조회
+GET localhost:8080/destinations
+Content-Type: application/json
+
+{
+  "ctPrvnName": "경기도",
+  "siGunGuNam": "부천시"
+}
