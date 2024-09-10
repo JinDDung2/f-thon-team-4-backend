@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.geo.Point;
 
-import java.math.BigDecimal;
-
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Getter

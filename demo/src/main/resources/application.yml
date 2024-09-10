@@ -13,3 +13,8 @@ spring:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true # (spring boot 2.5~) Hibernate ??? ?? data.sql ??
+
+clova:
+  api-url: api-url
+  secret-key: secret-key
+  gateway-key: https://clovastudio.stream.ntruss.com/testapp/v1/chat-completions/HCX-DASH-001
