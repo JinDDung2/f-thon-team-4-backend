@@ -1,12 +1,14 @@
 package com.example.demo.presentation.api.destination;
 
-import com.example.demo.presentation.ApiResponse;
-import com.example.demo.presentation.api.destination.dto.request.GetDestinationRequest;
+import com.example.demo.presentation.PagedApiResponse;
 import com.example.demo.presentation.api.destination.dto.response.DestinationInfoResponse;
 import com.example.demo.service.DestinationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,11 +20,16 @@ public class DestinationController {
     private final DestinationService destinationService;
 
     @GetMapping("/destinations")
-    public ApiResponse<List<DestinationInfoResponse>> getDestinationsByCity(
-            @RequestBody GetDestinationRequest request
+    public PagedApiResponse<List<DestinationInfoResponse>> getDestinationsByCity(
+            @RequestParam String ctPrvnName,
+            @RequestParam String siGunGuNam,
+            @PageableDefault(size = 10) Pageable pageable
     ) {
-        List<DestinationInfoResponse> responses = destinationService.getDestinationsByCity(request.ctPrvnName(), request.siGunGuNam());
+        Page<DestinationInfoResponse> destinationsInfoPage =
+                destinationService.getDestinationsByCity(ctPrvnName, siGunGuNam, pageable);
 
-        return ApiResponse.ok(responses);
+        return PagedApiResponse.ok(destinationsInfoPage.getContent(),
+                destinationsInfoPage.getNumber(),
+                destinationsInfoPage.getSize());
     }
 }

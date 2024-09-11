@@ -4,9 +4,10 @@ import com.example.demo.domain.model.Destination;
 import com.example.demo.domain.repository.DestinationRepository;
 import com.example.demo.presentation.api.destination.dto.response.DestinationInfoResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,11 @@ public class DestinationService {
      * return: [Dto(이름, 설명, 위도, 경도)]
      */
 
-    public List<DestinationInfoResponse> getDestinationsByCity(String ctPrvnName, String siGunGuNam) {
-        List<Destination> destinations = destinationRepository.findAllByCtPrvnNameAndSiGunGuName(ctPrvnName, siGunGuNam);
+    public Page<DestinationInfoResponse> getDestinationsByCity(String ctPrvnName, String siGunGuNam, Pageable pageable) {
+        Page<Destination> destinationsPage =
+                destinationRepository.findAllByCtPrvnNameAndSiGunGuName(ctPrvnName, siGunGuNam, pageable);
 
-        return destinations.stream()
-                .map(DestinationInfoResponse::of)
-                .toList();
+        return destinationsPage.map(DestinationInfoResponse::of);
     }
 
 }
