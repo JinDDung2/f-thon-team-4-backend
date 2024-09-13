@@ -8,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootTest
 public class DestinationTest {
@@ -69,6 +66,23 @@ public class DestinationTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // 용인시 수지구 -> 용인시
+    @Test
+    @DisplayName("시군구에 두 단어 이상이 있으면 하나의 단어로 바꾼다.")
+    void sigungu_name_make_one_word(){
+        // 레포에서 전부 다 갖고오기
+        List<Destination> destinationList = destinationRepository.findAll();
+        // sigungu.split(" ") -> size() > 1만 변경
+        for (Destination destination : destinationList) {
+            String[] sigungu = destination.getSiGunGuName().split(" ");
+            if (sigungu.length > 1) {
+                destination.extractCityName();
+            }
+        }
+
+        destinationRepository.saveAll(destinationList);
     }
 
 }

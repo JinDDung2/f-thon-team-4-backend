@@ -38,4 +38,11 @@ public class Destination {
             this.description = description;
         }
     }
+
+    public void extractCityName() {
+        String[] siGunGuArr = this.siGunGuName.split(" ");
+        if (siGunGuArr.length <= 1) return;
+
+        this.siGunGuName = siGunGuArr[0];
+    }
 }
