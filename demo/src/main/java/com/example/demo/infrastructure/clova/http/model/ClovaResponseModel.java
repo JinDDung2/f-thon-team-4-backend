@@ -15,4 +15,8 @@ public class ClovaResponseModel {
         this.status = status;
         this.result = result;
     }
+
+    public String getContent() {
+        return this.result.getMessage().getContent();
+    }
 }

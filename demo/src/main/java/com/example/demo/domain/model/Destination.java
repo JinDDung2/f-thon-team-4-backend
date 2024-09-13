@@ -33,4 +33,9 @@ public class Destination {
         this.description = description;
     }
 
+    public void updateDescription(String description) {
+        if (this.description == null || this.description.isEmpty() || !this.description.equals(description)) {
+            this.description = description;
+        }
+    }
 }
